@@ -1,4 +1,4 @@
-//grammar DogsAndCats;
+grammar DogsAndCats;
 
 // Traditional BNF Form...
 //
@@ -9,23 +9,14 @@
 //	<N>  ::= 'dog' | 'cat' | 'rat'
 
 
-// ANTLR 3 Syntax....
-s 	: np v np;
-np 	: a n;
-v	: 'loves' | 'hates' | 'eats';
-a 	: 'a' | 'the';
-n	: 'dog' | 'cat' | 'rat';
-
-
-
-
-
-
-// ANTLR 3 Specific for defining "whitespace" to the Lexer.
-WS  :   ( ' '
-        | '\t'
-        | '\r'
-        | '\n'
-        ) {$channel=HIDDEN;}
-    ;
-
+s  :  np   v   np   comp   t;
+np   :  a   an;
+an   :  adj   n |  n    ;                   // Illustrates Choices
+comp   :  conj  s |  empty  ;    // Illustrates Recursion (and a choice)
+a  : 'a' | 'the';
+v   : 'loves' | 'hates' | 'eats';
+n   : 'dog' | 'cat' | 'rat';
+adj : 'furry' | 'fast' | 'lazy' | 'sneaky';
+conj  : 'and' | 'or';
+empty : ;
+t : '.' | ''
